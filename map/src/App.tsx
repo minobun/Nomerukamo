@@ -3,6 +3,8 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import type { FeatureCollection } from 'geojson';
 import type { CircleLayer } from 'react-map-gl/maplibre';
 
+import ControlPanel from './control-panel';
+
 const geojson: FeatureCollection = {
   "type": "FeatureCollection",
   "features": [
@@ -23,19 +25,22 @@ function App() {
 
 
   return (
-    <Map
-      initialViewState={{
-        longitude: 139.69696947,
-        latitude: 35.53152243,
-        zoom: 16
-      }}
-      style={{ width: '100vw', height: '100vh' }}
-      mapStyle="https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json"
-    >
-      <Source id="office" type="geojson" data={geojson}>
-        <Layer {...officeLayerStyle} />
-      </Source>
-    </Map>
+    <>
+      <Map
+        initialViewState={{
+          longitude: 139.69696947,
+          latitude: 35.53152243,
+          zoom: 16
+        }}
+        style={{ width: '100vw', height: '100vh' }}
+        mapStyle="https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json"
+      >
+        <Source id="office" type="geojson" data={geojson}>
+          <Layer {...officeLayerStyle} />
+        </Source>
+      </Map>
+      <ControlPanel />
+    </>
   )
 }
 
