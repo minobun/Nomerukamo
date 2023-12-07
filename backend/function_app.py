@@ -1,5 +1,6 @@
 import azure.functions as func
 import logging
+import os
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
@@ -7,19 +8,17 @@ app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
+    api_token = os.environ('AzureAPI')
 
-    if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+    # パラメータの構築
+    params = {'address': '神奈川県川崎市幸区大宮町', 'key': api_token}
+
+    # Geocoding APIへのリクエスト
+    res = req.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/output?",params=params)
+
+    # レスポンスの解析
+    if res.status_code == 200:
+        data = res.json()
+        return func.HttpResponse(data)
     else:
-        return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
-        )
+        return func.HttpResponse("This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.")
