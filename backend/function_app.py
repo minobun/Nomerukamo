@@ -1,6 +1,7 @@
 import azure.functions as func
 import logging
 import os
+import requests
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
@@ -10,15 +11,15 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     api_token = os.environ['AzureAPI']
 
-    # パラメータの構築
-    params = {'address': '神奈川県川崎市幸区大宮町', 'key': api_token}
+        # パラメータの構築
+    params = {'input': '神奈川県川崎市幸区大宮町', 'key': api_token, 'inputtype': 'textquery'}  # 修正
 
     # Geocoding APIへのリクエスト
-    res = req.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/output?",params=params)
+    res = requests.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/json", params=params)  # 修正
 
     # レスポンスの解析
     if res.status_code == 200:
         data = res.json()
         return func.HttpResponse(data)
     else:
-        return func.HttpResponse("This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.")
+        return func.HttpResponse("Error: {}".format(res.status_code), status_code=res.status_code)
