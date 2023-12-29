@@ -1,7 +1,5 @@
 import azure.functions as func
 import logging
-import os
-import requests
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
@@ -11,7 +9,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     api_token = os.environ['AzureAPI']
 
-        # パラメータの構築
+    # パラメータの構築
     params = {'input': '神奈川県川崎市幸区大宮町', 'key': api_token, 'inputtype': 'textquery'}  # 修正
 
     # Geocoding APIへのリクエスト
