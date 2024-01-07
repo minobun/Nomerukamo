@@ -17,9 +17,12 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     # パラメータの構築
     params = {'input': '神奈川県川崎市幸区大宮町', 'key': api_token, 'inputtype': 'textquery'}
     query = parse.urlencode(params)
+    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+
+    print(query + url)
 
     # Geocoding APIへのリクエスト
-    response = request.urlopen("https://maps.googleapis.com/maps/api/place/findplacefromtext/json" + query)
+    response = request.urlopen(url + query)
 
     print(response)
 
