@@ -1,13 +1,13 @@
-import os
-import requests
-import logging
-
 import azure.functions as func
+import logging
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="http_trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
+    import os
+    import requests
+    
     logging.info('Python HTTP trigger function processed a request.')
 
     api_token = os.environ['AzureAPI']
