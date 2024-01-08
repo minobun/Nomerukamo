@@ -26,9 +26,12 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     logging.info(response)
 
-    # レスポンスの解析
-    if response.status_code == 200:
-        data = response.json()
+    data = json.loads(response.read().decode("utf-8"))
+
+    logging.info(response)
+
+    # レスポンスの解析\
+    if data.status_code == 200:
         return func.HttpResponse(data)
     else:
         return func.HttpResponse("Error: {}".format(res.status_code), status_code=res.status_code)
