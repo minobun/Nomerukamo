@@ -19,12 +19,12 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     query = parse.urlencode(params)
     url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
 
-    print(query + url)
+    logging.info(query + url)
 
     # Geocoding APIへのリクエスト
     response = request.urlopen(url + query)
 
-    print(response)
+    logging.info(response)
 
     # レスポンスの解析
     if response.status_code == 200:
