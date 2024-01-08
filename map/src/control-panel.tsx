@@ -1,9 +1,9 @@
 import * as React from 'react';
 
-function ControlPanel() {
+const ControlPanel = (onClick: () => void) => {
     return (
         <div className="control-panel">
-            <h3>検索</h3>
+            <h3 onClick={onClick}>検索</h3>
         </div>
     );
 }
