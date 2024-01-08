@@ -30,8 +30,8 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     logging.info(data)
 
-    # レスポンスの解析\
-    if data.status == 200:
+    # レスポンスの解析
+    if data["status"] == 200:
         return func.HttpResponse(data)
     else:
-        return func.HttpResponse("Error: {}".format(data.status), status_code=404)
+        return func.HttpResponse("Error: {}".format(data["status"]), status_code=404)
