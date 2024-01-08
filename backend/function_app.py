@@ -24,8 +24,6 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     # Geocoding APIへのリクエスト
     response = request.urlopen(url + query)
 
-    logging.info(response)
-
     data = json.loads(response.read().decode("utf-8"))
 
     logging.info(data)
