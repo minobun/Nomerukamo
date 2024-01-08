@@ -4,7 +4,8 @@ import type { FeatureCollection } from 'geojson';
 import type { CircleLayer } from 'react-map-gl/maplibre';
 
 import ControlPanel from './control-panel';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+import axios from 'axios';
 
 const officeJson: FeatureCollection = {
   "type": "FeatureCollection",
@@ -36,6 +37,13 @@ function App() {
 
   const [popupInfo,setPopupInfo] = useState<izakayaObj>();
   const [isShown,setIsShown] = useState<boolean>(false);
+  const [izakayaList, setIzakayaList] = useState<izakayaObj[]>();
+
+
+  const searchIzakaya = () => {
+    axios.get("nomerukamoapi.azurewebsites.net")
+      .then((response) => setIzakayaList(response.data))
+  }
 
   const pins = useMemo(
     () =>
@@ -88,7 +96,7 @@ function App() {
           </Popup>
         )}
       </Map>
-      <ControlPanel />
+      <ControlPanel onClick={searchIzakaya}/>
     </>
   )
 }
