@@ -28,7 +28,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
     data = json.loads(response.read().decode("utf-8"))
 
-    logging.info(response)
+    logging.info(data)
 
     # レスポンスの解析\
     if data.status_code == 200:
