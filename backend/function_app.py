@@ -15,11 +15,11 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     api_token = os.environ['AzureAPI']
 
     # パラメータの構築
-    params = {'location': '35.53152243,139.69696947', 'key': api_token, 'radius': 1500 , 'type':'bar','keyword':'居酒屋'}
+    params = {'location': '35.53152243,139.69696947', 'key': api_token, 'radius': 1500 ,'keyword':'居酒屋'}
     query = parse.urlencode(params)
     url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
 
-    logging.info(url + query)
+    # logging.info(url + query)
 
     # Geocoding APIへのリクエスト
     response = request.urlopen(url + query)

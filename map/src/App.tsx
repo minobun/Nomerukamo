@@ -1,9 +1,10 @@
-import Map, { Source, Layer } from 'react-map-gl/maplibre';
+import Map, { Source, Layer, Popup, Marker } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import type { FeatureCollection } from 'geojson';
 import type { CircleLayer } from 'react-map-gl/maplibre';
 
 import ControlPanel from './control-panel';
+import { useState, useMemo } from 'react';
 
 const officeJson: FeatureCollection = {
   "type": "FeatureCollection",
@@ -21,23 +22,41 @@ const officeLayerStyle: CircleLayer = {
   }
 };
 
-const izakayaJson: FeatureCollection = {
-  "type": "FeatureCollection",
-  "features": [
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [139.700736,35.52903999999999] }, "properties": { "name": "Feliz" } },
-  ]
+interface izakayaObj {
+  "name":string;
+  "longitude":number;
+  "latitude":number;
 }
-const izakayaLayerStyle: CircleLayer = {
-  "id": "izakayas",
-  "type": "circle",
-  "source": "izakaya",
-  "paint": {
-    "circle-color": "red"
-  }
-};
+
+const izakaya: izakayaObj[] = [
+  {"name":"Feliz", "longitude":139.700736,"latitude":35.52904}
+]
 
 function App() {
 
+  const [popupInfo,setPopupInfo] = useState<izakayaObj>();
+  const [isShown,setIsShown] = useState<boolean>(false);
+
+  const pins = useMemo(
+    () =>
+      izakaya.map((city, index) => (
+        <Marker
+          key={`marker-${index}`}
+          longitude={city.longitude}
+          latitude={city.latitude}
+          anchor="bottom"
+          onClick={e => {
+            // If we let the click event propagates to the map, it will immediately close the popup
+            // with `closeOnClick: true`
+            e.originalEvent.stopPropagation();
+            setIsShown(true);
+            setPopupInfo(city);
+          }}
+        >
+        </Marker>
+      )),
+    []
+  );
 
   return (
     <>
@@ -53,9 +72,21 @@ function App() {
         <Source id="office" type="geojson" data={officeJson}>
           <Layer {...officeLayerStyle} />
         </Source>
-        <Source id="izakaya" type="geojson" data={izakayaJson}>
-          <Layer {...izakayaLayerStyle} />
-        </Source>
+        
+        {pins}
+
+        {isShown && popupInfo && (
+          <Popup
+            anchor="top"
+            longitude={Number(popupInfo.longitude)}
+            latitude={Number(popupInfo.latitude)}
+            onClose={() => setIsShown(false)}
+          >
+            <div>
+              {popupInfo.name}
+            </div>
+          </Popup>
+        )}
       </Map>
       <ControlPanel />
     </>
