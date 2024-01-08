@@ -35,6 +35,7 @@ const izakaya: izakayaObj[] = [
 function App() {
 
   const [popupInfo,setPopupInfo] = useState<izakayaObj>();
+  const [isShown,setIsShown] = useState<boolean>(false);
 
   const pins = useMemo(
     () =>
@@ -48,6 +49,7 @@ function App() {
             // If we let the click event propagates to the map, it will immediately close the popup
             // with `closeOnClick: true`
             e.originalEvent.stopPropagation();
+            setIsShown(true);
             setPopupInfo(city);
           }}
         >
@@ -73,12 +75,12 @@ function App() {
         
         {pins}
 
-        {popupInfo && (
+        {isShown && popupInfo && (
           <Popup
             anchor="top"
             longitude={Number(popupInfo.longitude)}
             latitude={Number(popupInfo.latitude)}
-            onClose={() => setPopupInfo(null)}
+            onClose={() => setIsShown(false)}
           >
             <div>
               {popupInfo.name}
