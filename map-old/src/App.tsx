@@ -1,7 +1,7 @@
-import Map, { Source, Layer } from 'react-map-gl/maplibre';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import type { FeatureCollection } from 'geojson';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import type { CircleLayer } from 'react-map-gl/maplibre';
+import Map, { Layer, Source } from 'react-map-gl/maplibre';
 
 import ControlPanel from './control-panel';
 
@@ -22,8 +22,6 @@ const officeLayerStyle: CircleLayer = {
 };
 
 function App() {
-
-
   return (
     <>
       <Map
