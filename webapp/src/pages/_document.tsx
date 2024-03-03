@@ -1,7 +1,8 @@
+import createCustomCache from "@emotion/cache";
 import { DocumentHeadTags, DocumentHeadTagsProps, documentGetInitialProps } from "@mui/material-nextjs/v14-pagesRouter";
-import { DocumentContext, Head, Html, Main, NextScript } from "next/document";
+import { DocumentContext, DocumentProps, Head, Html, Main, NextScript } from "next/document";
 
-export default function Document(props: DocumentHeadTagsProps) {
+export default function Document(props: DocumentProps & DocumentHeadTagsProps) {
   return (
     <Html lang="en">
       <Head />
@@ -15,5 +16,8 @@ export default function Document(props: DocumentHeadTagsProps) {
 }
 
 Document.getInitialProps = async (ctx: DocumentContext) => {
-  return await documentGetInitialProps(ctx)
+  const finalProps = await documentGetInitialProps(ctx, {
+    emotionCache: createCustomCache
+  })
+  return finalProps
 }
