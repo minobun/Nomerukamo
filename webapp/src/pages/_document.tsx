@@ -14,8 +14,10 @@ import {
 
 export default function Document(props: DocumentProps & DocumentHeadTagsProps) {
   return (
-    <Html lang="en">
-      <Head />
+    <Html lang="ja-jp">
+      <Head>
+        <title>のめるかも</title>
+      </Head>
       <DocumentHeadTags {...props} />
       <body>
         <Main />

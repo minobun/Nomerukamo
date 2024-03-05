@@ -1,22 +1,24 @@
+import { ShopProps } from '@/type';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export default function Shop() {
+export default function Shop(props: ShopProps) {
+    const { name, content, URL } = props;
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    Shop Name
+                    {name}
                 </Typography>
                 <Typography variant="body2">
-                    Shop Features
+                    {content}
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Share</Button>
+                <Button size="small">{URL}</Button>
             </CardActions>
         </Card>
     );
