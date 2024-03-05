@@ -15,20 +15,21 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
     api_token = os.environ['AzureAPI']
 
     # パラメータの構築
-    params = {'input': '神奈川県川崎市幸区大宮町', 'key': api_token, 'inputtype': 'textquery'}
+    params = {'location': '35.53152243,139.69696947', 'key': api_token, 'radius': 1500 ,'keyword':'居酒屋'}
     query = parse.urlencode(params)
-    url = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json"
+    url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
 
-    print(query + url)
+    # logging.info(url + query)
 
     # Geocoding APIへのリクエスト
     response = request.urlopen(url + query)
 
-    print(response)
+    data = json.loads(response.read().decode("utf-8"))
+
+    logging.info(data)
 
     # レスポンスの解析
-    if response.status_code == 200:
-        data = response.json()
+    if data["status"] == "OK":
         return func.HttpResponse(data)
     else:
-        return func.HttpResponse("Error: {}".format(res.status_code), status_code=res.status_code)
+        return func.HttpResponse("Error: {}".format(data["status"]), status_code=500)
