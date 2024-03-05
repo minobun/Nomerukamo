@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:16.2
+    container_name: nomerukamodb
+    environment:
+      POSTGRES_DB: nomerukamodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data #dbの永続化
+      - ./initdb:/docker-entrypoint-initdb.d #dbの初期化
+volumes:
+  postgres_data:
