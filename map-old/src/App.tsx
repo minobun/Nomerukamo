@@ -1,10 +1,10 @@
-import Map, { Source, Layer, Popup, Marker } from 'react-map-gl/maplibre';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import type { FeatureCollection } from 'geojson';
+import 'maplibre-gl/dist/maplibre-gl.css';
 import type { CircleLayer } from 'react-map-gl/maplibre';
+import Map, { Layer, Marker, Popup, Source } from 'react-map-gl/maplibre';
 
+import { useMemo, useState } from 'react';
 import ControlPanel from './control-panel';
-import { useState, useMemo } from 'react';
 
 const officeJson: FeatureCollection = {
   "type": "FeatureCollection",
@@ -23,19 +23,19 @@ const officeLayerStyle: CircleLayer = {
 };
 
 interface izakayaObj {
-  "name":string;
-  "longitude":number;
-  "latitude":number;
+  "name": string;
+  "longitude": number;
+  "latitude": number;
 }
 
 const izakaya: izakayaObj[] = [
-  {"name":"Feliz", "longitude":139.700736,"latitude":35.52904}
+  { "name": "Feliz", "longitude": 139.700736, "latitude": 35.52904 }
 ]
 
 function App() {
 
-  const [popupInfo,setPopupInfo] = useState<izakayaObj>();
-  const [isShown,setIsShown] = useState<boolean>(false);
+  const [popupInfo, setPopupInfo] = useState<izakayaObj>();
+  const [isShown, setIsShown] = useState<boolean>(false);
 
   const pins = useMemo(
     () =>
@@ -72,7 +72,7 @@ function App() {
         <Source id="office" type="geojson" data={officeJson}>
           <Layer {...officeLayerStyle} />
         </Source>
-        
+
         {pins}
 
         {isShown && popupInfo && (
