@@ -5,15 +5,15 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export default function Shop(props: ShopProps) {
+export default function ShopCard(props: ShopProps) {
     const { name, content, URL } = props;
     return (
         <Card>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="subtitle2" component="div">
                     {name}
                 </Typography>
-                <Typography variant="body2">
+                <Typography variant="caption">
                     {content}
                 </Typography>
             </CardContent>
