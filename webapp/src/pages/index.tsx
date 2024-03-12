@@ -30,7 +30,7 @@ export default function Home() {
 
     return (
         <Template>
-            <Typography>個人的に美味しいと感じている川崎にあるお店を紹介します。</Typography>
+            <Typography alignItems="center" alignContent="center" textAlign="center">川崎にある美味しいお店を紹介します。</Typography>
             <FilterButtons filters={filters} handleFilter={handleFilter} />
             <ShopList filters={filters} shopList={shopList} />
         </Template>

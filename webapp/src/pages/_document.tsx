@@ -1,21 +1,22 @@
 import {
   DocumentHeadTags,
   DocumentHeadTagsProps,
-  documentGetInitialProps,
+  documentGetInitialProps
 } from '@mui/material-nextjs/v14-pagesRouter';
 import {
-  DocumentContext,
   DocumentProps,
   Head,
   Html,
   Main,
-  NextScript,
+  NextScript
 } from 'next/document';
 
 export default function Document(props: DocumentProps & DocumentHeadTagsProps) {
   return (
     <Html lang="ja-jp">
-      <Head />
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
+      </Head>
       <DocumentHeadTags {...props} />
       <body>
         <Main />

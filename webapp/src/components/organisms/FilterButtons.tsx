@@ -9,9 +9,9 @@ export default function FilterButtons({ filters, handleFilter }: { filters: stri
         <Container>
             <Stack sx={{ flexGrow: 1 }} margin="20px" alignItems="center">
                 <ToggleButtonGroup value={filters} onChange={handleFilter}>
-                    <ToggleButton value="ramen">"ラーメン"のお店</ToggleButton>
-                    <ToggleButton value="udon">"うどん"のお店</ToggleButton>
-                    <ToggleButton value="umai">"美味しい！"お店</ToggleButton>
+                    <ToggleButton value="ramen">ラーメン</ToggleButton>
+                    <ToggleButton value="udon">うどん</ToggleButton>
+                    <ToggleButton value="soba">そば</ToggleButton>
                 </ToggleButtonGroup>
             </Stack>
         </Container>

@@ -1,13 +1,21 @@
-import { green, grey } from '@mui/material/colors';
+import { blue, green } from '@mui/material/colors';
 import { createTheme } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {
         primary: {
-            main: green[200],
+            main: green[900],
         },
         secondary: {
-            main: grey[900],
+            main: blue[900],
         },
-    }
+    },
+})
+
+export const dotGothicTheme = createTheme({
+    typography: {
+        fontFamily: [
+            'DotGothic16',
+        ].join(','),
+    },
 })
