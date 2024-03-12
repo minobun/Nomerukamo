@@ -17,8 +17,19 @@ model Shop {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  /// @zod.string.max(255, { message: "Please enter less than 255 characters" })
   name      String   @db.VarChar(255)
+  /// @zod.string.max(4000, { message: "Please enter less than 4000 characters" })
   content   String?
+  /// @zod.string.max(4000, { message: "Please enter less than 4000 characters" })
   URL       String?
+  /// @zod.string.array(.max(100, { message: "Please enter less than 100 items" })).max(100, { message: "Please enter less than 100 characters" })
   type      String[]
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+  // output   = "./generated/zod" default
+  // createInputTypes = false
+  // createModelTypes = true default
 }

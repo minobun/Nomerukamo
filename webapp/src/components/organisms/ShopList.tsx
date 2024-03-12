@@ -9,8 +9,8 @@ export default function ShopList({ filters, shopList }: { filters: string[], sho
             <Grid container spacing={2}>
                 {shopList
                     .filter((shop) => shop.type.some(v => filters.includes(v)))
-                    .map((shop) =>
-                        (<Grid item xs={4} ><ShopCard name={shop.name} content={shop.content} URL={shop.URL} /></Grid>)
+                    .map((shop, index) =>
+                        (<Grid item xs={4} key={index}><ShopCard name={shop.name} content={shop.content} URL={shop.URL} /></Grid>)
                     )}
             </Grid>
         </Box>

@@ -1,23 +1,31 @@
 import prisma from '@/lib/prisma';
-import { Shop } from '@prisma/client';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { ShopCreateInputSchema } from '../../../prisma/generated/zod';
 
 async function createShopHandler(req: NextApiRequest, res: NextApiResponse) {
-    const shop: Shop = req.body
-    await prisma.shop
-        .create({
-            data: shop
-        })
-        .then(async () => {
-            res.status(201).json(shop)
-        })
-        .catch(async (e) => {
-            console.error(e)
-            res.status(500).json({ error: 'server error' })
-        })
-        .finally(async () => {
-            await prisma.$disconnect();
-        })
+    try {
+        const { name, content, URL, type } = ShopCreateInputSchema.parse(req.body)
+
+        await prisma.shop
+            .create({
+                data: {
+                    name, content, URL, type
+                }
+            })
+            .then(async (result) => {
+                res.status(201).json(result)
+            })
+            .catch(async (e) => {
+                console.error(e)
+                res.status(500).json({ error: 'server error' })
+            })
+            .finally(async () => {
+                await prisma.$disconnect();
+            })
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ error: 'validation error' })
+    }
 }
 async function findShopsHandler(req: NextApiRequest, res: NextApiResponse) {
     await prisma.shop

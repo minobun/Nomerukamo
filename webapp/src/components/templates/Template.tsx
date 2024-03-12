@@ -1,10 +1,8 @@
-import { theme } from "@/common/theme";
-import Container from '@mui/material/Container';
-import { ThemeProvider } from "@mui/material/styles";
+import Grid from '@mui/material/Grid';
 import { ReactNode } from "react";
-import FilterButtons from "../organisms/FilterButtons";
 import Footer from "../organisms/Footer";
 import Header from "../organisms/Header";
+import SideMenu from "../organisms/SideMenu";
 
 type TemplateProps = {
     children: ReactNode;
@@ -12,13 +10,17 @@ type TemplateProps = {
 
 export default function Template({ children }: TemplateProps) {
     return (
-        <ThemeProvider theme={theme}>
+        <>
             <Header />
-            <Container maxWidth='lg'>
-                {children}
-                <FilterButtons />
-                <Footer />
-            </Container>
-        </ThemeProvider>
+            <Grid container spacing={2} padding="20px">
+                <Grid item xs={2}>
+                    <SideMenu />
+                </Grid>
+                <Grid item xs={8}>
+                    {children}
+                </Grid>
+            </Grid>
+            <Footer />
+        </>
     );
 }
